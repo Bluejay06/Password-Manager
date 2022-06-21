@@ -48,6 +48,7 @@ public class Main {
 	    	pstmt.setString(2, pass);
 	    	pstmt.executeUpdate();
 	        System.out.println( "Data Entered" );
+	        //System TEST
 	    	
 	    }catch(SQLException e) {
 	        e.printStackTrace();
