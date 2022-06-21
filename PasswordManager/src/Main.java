@@ -36,6 +36,8 @@ public class Main {
 		
 		System.out.println( "Opened database successfully" );
 		
+		
+		
 		 
 		
 
@@ -45,7 +47,7 @@ public class Main {
 	    	pstmt.setString(1, user);
 	    	pstmt.setString(2, pass);
 	    	pstmt.executeUpdate();
-	        System.out.println( "1st executeUpdate() returned " );
+	        System.out.println( "Data Entered" );
 	    	
 	    }catch(SQLException e) {
 	        e.printStackTrace();
