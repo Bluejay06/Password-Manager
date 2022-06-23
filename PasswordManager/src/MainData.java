@@ -4,45 +4,40 @@ import org.sqlite.SQLiteDataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.io.PrintWriter;
 import java.io.*;
 
 
 
-public class Main {
+public class MainData {
 	
-
-	public static void main(String[] args) throws IOException {
-		String user;
-		String pass;
-		System.out.println("Enter a Username");
+	public static String passwordCheck(String password2) {
 		Scanner input = new Scanner(System.in);
-		user = input.next();
-		System.out.println("Enter a Password");
-		pass = input.next();
-		pass = passwordCheck(pass);
+		while(password2.length()< 8 && !password2.contains("<")) {
+			System.out.println("Password Must be at least 8 Characters Try Again");
+			password2 = input.next();
+		}
 		input.close();
-		
+	
+		return password2;
+	}
+	
+	public static SQLiteDataSource openDataBase(String info) {
 		SQLiteDataSource ds = null;
 		
 		try {
 		ds = new SQLiteDataSource();
-		ds.setUrl("jdbc:sqlite:firstDB.db");
+		ds.setUrl(info);
 		}catch(Exception e) {
 			e.printStackTrace();
 			System.exit(0);
 		}
 		
 		System.out.println( "Opened database successfully" );
-		
-		
-		
-		 
-		
-
-	    try ( Connection conn = ds.getConnection();
-	    	    ) {
+		return ds;
+	}
+	
+	public static void dataEnter(SQLiteDataSource ds, String user, String pass) {
+		try ( Connection conn = ds.getConnection();) {
 	    	PreparedStatement pstmt = conn.prepareStatement("INSERT INTO `Data`(User, Password) VALUES (?, ?)");
 	    	pstmt.setString(1, user);
 	    	pstmt.setString(2, pass);
@@ -55,28 +50,8 @@ public class Main {
 	        e.printStackTrace();
 	        System.exit( 0 );
 	    }
-	        
-	   
-	    
-		
-		
-
 	}
 	
-public static String passwordCheck(String password2) {
-	Scanner input = new Scanner(System.in);
-	while(password2.length()< 8 && !password2.contains("<")) {
-		System.out.println("Password Must be at least 8 Characters Try Again");
-		password2 = input.next();
-	}
-	input.close();
-	
-	return password2;
-}
-	
-	
-	
-
 }
 
 
